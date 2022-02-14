@@ -1,0 +1,252 @@
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+class Address{
+	private:
+            int houseNo, roadNo, zipCode;
+            string street, thana, district;
+            
+    public:
+            void setHouseNo(int h){
+                houseNo=h;
+            }
+            int getHouseNo(){
+                return houseNo;
+            }
+            
+            void setRoadNo(int rNo){
+                roadNo=rNo;
+            }
+            int getRoadNo(){
+                return roadNo;
+            }
+            
+            void setZipCode(int zCode){
+                zipCode=zCode;
+            }
+            int getZipCode(){
+                return zipCode;
+            }
+            
+            void setStreet(string strt){
+                street=strt;
+            }
+            string getStreet(){
+                return street;
+            }
+            
+            void setThana(string ta){
+                thana= ta;
+            }
+            string getThana(){
+                return thana;
+            }
+            
+            void setDistrict(string dt){
+                district=dt;
+            }
+            string getDistrict(){
+                return district;
+            }
+            friend istream& operator>>(istream& myIn, Address& empAddress);
+};
+
+class Employee{
+    private:
+            int employeeID; string name; string department;
+            
+    public:
+            Address empAddress;
+            Employee(){
+                employeeID=0;
+                name="NA";
+                department="NA";
+            }
+           
+            Employee(int eID, string ne, string dept){
+                employeeID=eID;
+				name=ne;
+				department=dept;
+				
+                cout <<"\nPlease also provide Address for Employee\n"<<endl;
+                
+                
+                cout <<"\nEnter Employee House Number "<<endl;
+                int houseNo;
+                cin>>houseNo;
+                empAddress.setHouseNo(houseNo);
+                
+                
+                cout <<"\nEnter Employee Street  "<<endl;
+                string street;
+                cin.ignore();
+                getline(cin, street);
+                
+                empAddress.setStreet(street);
+            
+                cout <<"\nEnter Employee road Number "<<endl;
+                int roadNo;
+                cin>>roadNo;
+                empAddress.setRoadNo(roadNo);
+                
+                
+                cout <<"\nEnter Employee thana Number "<<endl;
+                string thana;
+                cin.ignore();
+                getline(cin, thana);
+                empAddress.setThana(thana);
+                
+                cout <<"\nEnter Employee district  "<<endl;
+                string district;
+                getline(cin, district);
+                empAddress.setDistrict(district);
+                
+                cout <<"\nEnter zipCode  Number "<<endl;
+                int zipCode;
+                cin>>zipCode;
+                empAddress.setZipCode(zipCode);
+                
+                
+            }
+            
+            void setEmployeeID(int id){
+                employeeID=id;
+            }
+            
+            int getEmployeeID(){
+                return employeeID;
+                
+            }
+            
+            void setName(string n){
+                name = n;
+                
+            }
+            string getName(){
+                return name;
+                
+            }
+            void setDepartment(string d){
+                department = d;
+                
+            }
+            
+            string getDepartment(){
+                return department;
+            }
+           
+           friend istream& operator>>(istream&, Employee&);
+           friend ostream& operator<<(ostream&, Employee);
+		   
+		   bool operator==(int value){
+		   		if(empAddress.getZipCode()==value){
+		   			return true;
+				   }
+				   else{
+				   	return false;
+				   }
+		   } 
+    
+};
+
+istream& operator>>(istream& myIn, Address& empAddress){
+	cout <<"\nEnter Employee House Number "<<endl;
+                int houseNo;
+                cin>>houseNo;
+                empAddress.setHouseNo(houseNo);
+                
+                
+                cout <<"\nEnter Employee Street  "<<endl;
+                string street;
+                cin.ignore();
+                getline(cin, street);
+                
+                empAddress.setStreet(street);
+            
+                cout <<"\nEnter Employee road Number "<<endl;
+                int roadNo;
+                cin>>roadNo;
+                empAddress.setRoadNo(roadNo);
+                
+                
+                cout <<"\nEnter Employee thana Number "<<endl;
+                string thana;
+                cin.ignore();
+                getline(cin, thana);
+                empAddress.setThana(thana);
+                
+                cout <<"\nEnter Employee district  "<<endl;
+                string district;
+                getline(cin, district);
+                empAddress.setDistrict(district);
+                
+                cout <<"\nEnter zipCode  Number "<<endl;
+                int zipCode;
+                cin>>zipCode;
+                empAddress.setZipCode(zipCode);
+	return myIn;
+	
+	
+}
+
+
+istream& operator>>(istream& myIn, Employee& e){
+	cout <<"\nEnter employee id "<<endl;
+	int eid;
+	//cin>>eid;
+	cin>>eid;
+	e.setEmployeeID(eid);
+	cout <<"\nEnter employee name"<<endl;
+	string ename;
+	cin.ignore();
+	getline(myIn, ename);
+	e.setName(ename);
+	
+	cout <<"\nEnter employee Department"<<endl;
+	string edept;
+	getline(myIn, edept);
+	e.setDepartment(edept);
+	
+	myIn>>e.empAddress;
+	return myIn;
+	
+	
+}
+
+ostream& operator<<(ostream&, Employee e){
+	cout <<"\nEmployee ID: "<<e.getEmployeeID();
+	cout <<"\nEmployee name: "<<e.getName();
+	cout <<"\nEmployee Department: "<<e.getDepartment();
+	
+	cout <<"\nEmployee House no: "<<e.empAddress.getHouseNo();
+	cout <<"\nEmployee Road no: "<<e.empAddress.getRoadNo();
+	cout <<"\nEmployee streen is: "<<e.empAddress.getStreet();
+	cout <<"\nEmployee thana is : "<<e.empAddress.getThana();
+	
+	cout <<"\nEmployee District is: "<<e.empAddress.getDistrict();
+	cout <<"\nEmployee ZipCODE: "<<e.empAddress.getZipCode();
+	
+	
+}
+
+
+int main (){
+	Employee e1, e2(4161, "S K Dey", "CSE");
+	cout <<"\nGive input for employee 1 "<<endl;
+	cin>>e1;
+	cout <<"\n COMPLETE INFO of e1 \n";
+	cout << e1 << e2 <<endl;
+	
+	if(e1 == 1229)
+	{
+	cout <<"Lives in Bashundhara R/A"<<endl;
+	}	
+	else{
+	
+	cout <<" does Not live in Bashundhara R/A" <<endl;
+	}
+	return 0;
+	
+}
