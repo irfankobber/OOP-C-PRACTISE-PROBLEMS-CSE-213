@@ -1,0 +1,224 @@
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+class Date{
+	private:
+            int day;
+            int year;//, zipCode;
+            string month;//, thana, district;
+            
+    public:
+            void setDay(int d){
+                day=d;
+            }
+            int getDay(){
+                return day;
+            }
+            
+            void setYear(int y){
+                year=y;
+            }
+            int getYear(){
+                return year;
+            }
+            
+            void setMonth(string m){
+                month = m;
+            }
+            string getMonth(){
+                return month;
+            }
+            
+            
+            friend istream& operator>>(istream& myIn, Date& d);
+};
+
+class Employee{
+    private:
+            int employeeID; string name; string department;
+            
+    public:
+            Date dateOfJoining;
+            Employee(){
+                employeeID=0;
+                name="NA";
+                department="NA";
+            }
+           
+            Employee(int eID, string ne, string dept){
+                employeeID=eID;
+				name=ne;
+				department=dept;
+				
+                cout <<"\nPlease also provide Address for Employee\n"<<endl;
+                
+                
+                cout <<"\nEnter Employee day of dateOfJoining "<<endl;
+                int houseNo;
+                cin>>houseNo;
+                dateOfJoining.setDay(houseNo);
+                
+                
+                cout <<"\nEnter month  "<<endl;
+                string street;
+                cin.ignore();
+                getline(cin, street);
+                
+                dateOfJoining.setMonth(street);
+            
+                cout <<"\nEnter Employee year "<<endl;
+                int roadNo;
+                cin>>roadNo;
+                dateOfJoining.setYear(roadNo);
+                
+                
+                
+                
+            }
+            
+            void setEmployeeID(int id){
+                employeeID=id;
+            }
+            
+            int getEmployeeID(){
+                return employeeID;
+                
+            }
+            
+            void setName(string n){
+                name = n;
+                
+            }
+            string getName(){
+                return name;
+                
+            }
+            void setDepartment(string d){
+                department = d;
+                
+            }
+            
+            string getDepartment(){
+                return department;
+            }
+           
+           friend istream& operator>>(istream&, Employee&);
+           friend ostream& operator<<(ostream&, Employee);
+		   
+		  bool operator==(int value){
+		   		if(dateOfJoining.getYear() == value){
+		   			return true;
+				   }
+				   else{
+				   	return false;
+				   }
+		   } 
+
+          bool operator==(string month){
+                if(dateOfJoining.getMonth() == month){
+                    return true;
+                   }
+                   else{
+                    return false;
+                   }
+           } 
+
+            
+    
+};
+
+istream& operator>>(istream& myIn, Date& d){
+	cout <<"\nEnter Employee day "<<endl;
+                int houseNo;
+                cin>>houseNo;
+                d.setDay(houseNo);
+                
+                
+                cout <<"\nEnter month of joining "<<endl;
+                string street;
+                cin.ignore();
+                getline(cin, street);
+                
+                d.setMonth(street);
+            
+                cout <<"\nEnter year "<<endl;
+                int roadNo;
+                cin>>roadNo;
+                d.setYear(roadNo);
+                
+                
+              
+	return myIn;
+	
+	
+}
+
+
+istream& operator>>(istream& myIn, Employee& e){
+	cout <<"\nEnter employee id "<<endl;
+	int eid;
+	//cin>>eid;
+	cin>>eid;
+	e.setEmployeeID(eid);
+	cout <<"\nEnter employee name"<<endl;
+	string ename;
+	cin.ignore();
+	getline(myIn, ename);
+	e.setName(ename);
+	
+	cout <<"\nEnter employee Department"<<endl;
+	string edept;
+	getline(myIn, edept);
+	e.setDepartment(edept);
+	
+	myIn>>e.dateOfJoining;
+	return myIn;
+	
+	
+}
+
+ostream& operator<<(ostream& myOut, Employee e){
+	myOut <<"\nEmployee ID: "<<e.getEmployeeID();
+	myOut <<"\nEmployee name: "<<e.getName();
+	myOut <<"\nEmployee Department: "<<e.getDepartment();
+	
+	myOut <<"\nEmployee day: "<<e.dateOfJoining.getDay();
+	myOut <<"\nEmployee month no: "<<e.dateOfJoining.getMonth();
+	myOut <<"\nEmployee Year: "<<e.dateOfJoining.getYear();
+	
+    return myOut;
+	
+	
+}
+
+
+int main (){
+	Employee e1, e2(4161, "S K Dey", "CSE");
+	cout <<"\nGive input for employee 1 "<<endl;
+	cin>>e1;
+	cout <<"\n COMPLETE INFO of e1 \n";
+	cout << e1 << e2 <<endl;
+
+    cout <<"Mr./Ms. "<< e1.getName();
+
+    if(e1 == 2017 && e1 =="October")
+        cout <<" joined the compnay in october 2017"<<endl;
+    else
+        cout <<"did not join the copany in Ocotober 2017 "<<endl;
+
+    
+
+	/*
+	if(e1 == 1229)
+	{
+	cout <<"Lives in Bashundhara R/A"<<endl;
+	}	
+	else{
+	
+	cout <<" does Not live in Bashundhara R/A" <<endl;
+	}*/
+	return 0;
+	
+}
