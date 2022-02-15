@@ -1,0 +1,50 @@
+/******************************************************************************
+
+Welcome to GDB Online.
+GDB online is an online compiler and debugger tool for C, C++, Python, Java, PHP, Ruby, Perl,
+C#, VB, Swift, Pascal, Fortran, Haskell, Objective-C, Assembly, HTML, CSS, JS, SQLite, Prolog.
+Code, Compile, Run and Debug online from anywhere in world.
+
+*******************************************************************************/
+#include <iostream>
+
+using namespace std;
+
+class Student{
+    float cgpa;
+    public:
+        void setInfo(){
+            cout <<" Enter cgpa "<< endl;
+            float cg;
+            cin>>cg;
+            this->cgpa=cg;
+            
+        }
+        float operator +(Student& r){
+            float tempcgpa;
+            tempcgpa= cgpa+r.cgpa;
+            return tempcgpa;
+            
+        }
+        
+        float operator /(float value){
+            float tempans;
+            tempans= this->cgpa/value;
+            return tempans;
+        }
+        
+};
+
+int main()
+{
+    Student asif, rafiq;
+    
+    asif.setInfo();
+    rafiq.setInfo();
+    
+    float avgCgpa = (asif + rafiq)/2.0;
+    cout <<avgCgpa;
+    
+    
+    return 0;
+}
