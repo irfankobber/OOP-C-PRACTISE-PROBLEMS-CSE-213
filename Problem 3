@@ -1,0 +1,219 @@
+#include <bits/stdc++.h>
+using namespace std;
+//started at 17th february at 5pm ended at 18th february 2.30 am
+class Author {
+	private:
+			int ID;string name, email;
+	
+	public:
+			friend istream& operator>>(istream&, Author&);
+			friend ostream& operator<<(ostream&, Author);
+					
+		
+			bool operator == (string s){
+				
+				
+							
+							if(name==s){
+								
+									return true;
+							}
+					else{
+						return false;
+					}
+					
+			}		
+			
+			
+			
+};
+
+istream& operator>>(istream& myIn, Author& a){
+    
+    cout << "\nEnter Author Info\nEnter ID\n";
+    
+    myIn>>a.ID;
+    
+    cout <<"Enter name\n";
+    myIn.ignore();
+    getline(myIn, a.name);
+    
+    cout << "Enter email\n";
+   
+    getline(myIn,a.email);
+    
+    return myIn;
+    
+    
+}
+
+ostream& operator<<(ostream& myOut, Author a){
+	myOut << "\nAuthor ID\n";
+	myOut<<a.ID;
+    myOut << "\nAuthor name\n";
+    
+    myOut<<a.name;
+    
+    cout << "\nAuthor email\n";
+    
+    myOut<<a.email;
+    
+    
+    
+    
+    
+    return myOut;
+    
+}
+
+
+
+class Book {
+	private:
+			 string title, ISBN_No;float price;int noOfAuthor; Author *ptr;
+	
+	public:
+			 Book() {
+      					title = "NA";
+      					ISBN_No = "NA";
+      					price = 0;
+    }
+  		Book(string t, string i, float p) {
+    								title = t;
+    									ISBN_No = i;
+    									price = p;
+    cout<<"For the parameterised constructor enter author details\n";
+    cout <<"What's the number of authors? "<<endl;
+    cin>>noOfAuthor;
+    ptr=new Author[noOfAuthor];
+    
+    for(int i=0;i<noOfAuthor;i++){
+    	cout <<"Enter Details for Author number "<<i+1 << endl;
+    	cin>>ptr[i];
+    	
+    	
+	}
+  }
+			void setTitle(string T) {
+    					title = T;
+  				}
+  			string getTitle() {
+   						 return title;
+  				}
+			friend istream& operator>>(istream&, Book&);
+			friend ostream& operator<<(ostream&, Book);
+					
+		bool operator<=(float val){
+		    Book b;
+			if (b.price <= val){
+				return true;
+			}
+			else{
+				return false;
+			}
+		}
+				
+				
+			bool operator == (string s){
+				
+					for (int i = 0 ; i < noOfAuthor ; i++){
+							
+							if(ptr[i]==s){
+								
+									return true;
+							}
+					}
+					
+					return false;
+			}	
+			
+			
+			
+			
+};
+
+
+
+
+
+
+istream & operator >> (istream& myIn, Book& b) {
+
+  //actually cin and myIn is the same object
+  //we are passing myIn and book b as reference
+  // so we are actually passing the original parameters
+  // this is because these parameters are expensive to copy
+  // so we are passing them directly
+  cout << "Enter Title: \n";
+  getline(myIn, b.title);
+  //b.setTitle(t);
+	cout <<"\n give isbn no. "<<endl;
+	myIn>>b.ISBN_No;
+	cout <<"\n g9ve price "<<endl;
+	myIn>>b.price;
+  
+  cout << "Number of Author: \n";
+  myIn>>b.noOfAuthor;
+  
+  b.ptr = new Author[b.noOfAuthor];
+  
+  for(int i=0; i<b.noOfAuthor;i++){
+  	cout<<"Enter details of Author Number "<<i+1<<endl;
+  	myIn>>b.ptr[i];
+  	cout << endl;
+
+  }
+  
+ 
+
+  return myIn; //this is not required to write if we are NOt doing method chaining example cin>>b1>>b2;
+  //but if we are we need to write return myIN;
+  //because we are returning an istream type object
+
+}
+
+ostream & operator << (ostream & myout, Book b){
+	myout<<"Book Title is: ";
+	myout<<b.title;
+	
+	myout<<"\n Book ISBN_no is \n";myout<<b.ISBN_No<<endl;
+	myout<<"Books price is "<<endl;
+	myout<<b.price<<endl;
+
+	for(int i=0; i<b.noOfAuthor;i++){
+		myout<<"Author number "<<i+1;
+		myout<<"'s information is \n";
+		myout<<b.ptr[i];
+		myout <<endl;
+	}
+
+
+    return myout;
+
+
+}
+
+int main(){
+	
+	 Book b1, b2("Data Structures", "978-0-7334-2609-4", 550);
+  //parameterized constructor also ask for no of authors and their details
+  cout << "Give input for book 1: " << endl;
+  cin >> b1;
+ 
+  //Should ask title, ISBN_No, price.
+  //Then ask #ofAuthors & author info (id, name and email) for all
+  //authors.
+  cout << "Complete information of the books are: " << endl;
+  cout << b1 << b2 << endl;
+  
+ cout << "For The book titled: " << b1.getTitle() << endl;
+  if (b1 <= 1000 || b1 == "Ataul Karim")
+    cout << "Ataul Karim is an author, or the price is <= 1000" << endl;
+  else
+    cout << "Ataul Karim is NOT an author & price is > 1000" << endl;
+	
+	
+	
+	
+	
+}
