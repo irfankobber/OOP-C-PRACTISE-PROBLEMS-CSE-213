@@ -1,0 +1,151 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+class Author{
+	string authorName;
+	string authorEmail;
+	public:
+	        //friend istream& operator>>(istream&, Author&);
+	        //friend ostream& operator<<(ostream&, Author);
+	        
+	       Author populateAuthor(){
+	           cout<<"Enter Author Name: "<<endl;
+	           cin.ignore();
+	           getline(cin, authorName);
+	           
+	           cout <<"Enter Author Email: "<< endl;
+	           getline(cin, authorEmail);
+	           
+	           return *this;
+	           
+	       }
+	       
+	       Author populateAuthorList(){
+	           cout<<"Author name is: "<<authorName<<endl;
+	           cout<<"Author Email is: "<<authorEmail<<endl;
+	           return *this;
+	           
+	       }
+	        
+			
+};
+
+class Book{
+	string bookName;
+	Author *authorList;
+	int noOfAuthors;
+	float price;
+	string isbn;
+	
+	public:
+	        
+	        Book populateCourseBook(){
+	            cout<<"Enter Book Name: "<<endl;
+	            cin.ignore();getline(cin, bookName);
+	            cout<<"Enter Book ISBN: "<<endl;
+	            getline(cin, isbn);
+	            cout<<"Enter Book Price: "<<endl;
+	            cin>>price;
+	            cout<<"Enter Number Of Authors: "<<endl;
+	            cin>>noOfAuthors;
+	            authorList= new Author[noOfAuthors];
+	            
+	            
+	            for(int i = 0; i <noOfAuthors;i++){
+	                cout<<"Enter Information for Author "<<i+1<<endl;
+	                authorList[i].populateAuthor();
+	            }
+	            
+	            return *this;
+	            
+	            
+	        }
+	        
+	        Book displayCourseBooks(){
+	            cout<<"Book name is: "<<bookName<<endl;
+	            cout<<"Book ISBN no is: "<<isbn << endl;
+	            cout <<"Book price is "<<price << endl;
+	            cout <<"Number of Author of book is: "<< noOfAuthors<<endl;
+	            for(int i = 0 ; i < noOfAuthors ; i++){
+	            authorList[i].populateAuthorList();
+	            }
+	            return *this;
+	        }
+	        
+	        
+	    
+			
+};
+
+class Course{
+	string courseId, courseTitle;
+	int noOfCredits;
+	Book textBook;
+	public:
+			int getcredits(){
+				return noOfCredits;
+			}
+	       Course& populateCourse(){
+	            cout <<"Enter courseId: "<<endl;
+	            cin.ignore();
+	            getline(cin, courseId);
+	            cout<<"Enter courseTitle: "<<endl;
+	            getline(cin,courseTitle);
+	            cout <<"Enter Number Of Credits: "<<endl;
+	            cin>>noOfCredits;
+	            textBook.populateCourseBook();
+	            
+	            
+	            return *this ;
+	        }
+	        
+	        Course displayCourse(){
+	            cout<<"Course ID is: "<<courseId<<endl;
+	            cout<<"Course Title is: "<<courseTitle<<endl;
+	            cout<<"Number of Credits for course is: "<<noOfCredits<<endl;
+	            textBook.displayCourseBooks();
+	            return *this;
+	        }
+	
+	      
+	
+		
+};
+
+  int& operator +=(int&x, Course courseArr){
+	        
+	        	x += courseArr.getcredits();
+	        	return x;
+			}
+
+
+
+void allocateMemory(Course *&courseArr, int n){
+    courseArr = new Course[n];
+    
+}
+
+int main () {
+	
+	Course *courseArr;int n,i;
+	cout <<"How many courses? ";cin>>n;
+	allocateMemory(courseArr, n);
+	for(i=0; i < n ; i++){
+		courseArr[i].populateCourse().displayCourse();
+		
+		
+		
+	}
+	
+
+    	
+	int totalCredits=0;
+	for(i=0;i<n;i++)totalCredits +=courseArr[i];
+	
+	cout <<"Total no of credits of these courses is: "<<totalCredits<<endl;
+	
+	return 0;
+	
+	
+}
